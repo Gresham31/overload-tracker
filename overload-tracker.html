@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="OVERLOAD" />
+  <title>OVERLOAD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; background: #f1f5f9; font-family: 'DM Sans', sans-serif; color: #0f172a; }
+    button { font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all 0.15s; border: none; }
+    input:focus { outline: none; }
+
+    #app { max-width: 560px; margin: 0 auto; padding: 20px 16px 80px; }
+
+    /* Header */
+    .header { border-radius: 20px; padding: 20px 22px; margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between; }
+    .header-title { font-size: 30px; font-weight: 900; color: #fff; letter-spacing: -0.02em; line-height: 1; }
+    .header-sub { font-size: 15px; color: rgba(255,255,255,0.75); margin-top: 4px; font-weight: 500; }
+    .header-pct { font-size: 36px; font-weight: 900; color: #fff; line-height: 1; text-align: right; }
+    .header-count { font-size: 13px; color: rgba(255,255,255,0.7); font-weight: 500; }
+
+    /* Progress */
+    .progress-bar-bg { background: #e2e8f0; border-radius: 99px; height: 10px; margin-bottom: 18px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; border-radius: 99px; transition: width 0.4s ease; }
+
+    /* Day selector */
+    .day-selector { display: flex; gap: 10px; margin-bottom: 20px; }
+    .day-btn { flex: 1; padding: 14px 8px; border-radius: 16px; border: 2px solid #e2e8f0; background: #fff; }
+    .day-btn.active { color: #fff; }
+    .day-btn-label { font-size: 20px; font-weight: 900; letter-spacing: -0.01em; line-height: 1; }
+    .day-btn-emoji { font-size: 11px; font-weight: 600; margin-top: 4px; letter-spacing: 0.02em; }
+
+    /* Section */
+    .section { margin-bottom: 16px; }
+    .section-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; padding-left: 4px; }
+    .section-name { font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+    .section-tag { font-size: 11px; font-weight: 800; border-radius: 6px; padding: 2px 8px; letter-spacing: 0.06em; border: 1px solid; }
+    .exercise-card { background: #fff; border: 2px solid #e2e8f0; border-radius: 18px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+
+    /* Exercise row */
+    .ex-row { padding: 14px 16px; border-bottom: 1px solid #e2e8f0; transition: background 0.2s; }
+    .ex-row:last-child { border-bottom: none; }
+    .ex-row.done { background: #f8fafc; }
+    .ex-top { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: center; }
+    .ex-name { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; display: flex; align-items: center; gap: 8px; }
+    .ex-name.done { color: #94a3b8; text-decoration: line-through; }
+    .pr-badge { font-size: 11px; font-weight: 800; color: #fff; border-radius: 6px; padding: 2px 7px; letter-spacing: 0.05em; }
+    .ex-meta { font-size: 17px; color: #475569; margin-top: 4px; font-weight: 600; }
+    .lbs-col { display: flex; flex-direction: column; gap: 3px; align-items: center; }
+    .input-label { font-size: 11px; color: #94a3b8; font-weight: 700; letter-spacing: 0.08em; }
+    .lbs-input { width: 70px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 10px; padding: 8px 4px; color: #0f172a; font-size: 16px; font-weight: 700; text-align: center; font-family: 'DM Sans', sans-serif; }
+    .lbs-input.improved { border-color: var(--color); background: color-mix(in srgb, var(--color) 10%, white); color: var(--color); }
+    .reps-input { width: 60px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 10px; padding: 8px 4px; color: #0f172a; font-size: 16px; font-weight: 700; text-align: center; font-family: 'DM Sans', sans-serif; }
+    .set-input { width: 52px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 10px; padding: 8px 4px; color: #0f172a; font-size: 16px; font-weight: 700; text-align: center; font-family: 'DM Sans', sans-serif; }
+    .check-btn { width: 44px; height: 44px; border-radius: 12px; border: 2px solid #cbd5e1; background: #f1f5f9; color: #94a3b8; font-size: 20px; font-weight: 900; display: flex; align-items: center; justify-content: center; }
+    .check-btn.done { color: #fff; }
+
+    /* Multi-set reps */
+    .multiset-reps { display: flex; gap: 8px; margin-top: 10px; align-items: flex-end; }
+    .multiset-col { display: flex; flex-direction: column; gap: 3px; align-items: center; }
+    .multiset-label { font-size: 11px; color: #94a3b8; font-weight: 700; letter-spacing: 0.04em; }
+    .reps-unit { font-size: 13px; color: #94a3b8; font-weight: 600; padding-bottom: 10px; }
+
+    /* Single reps */
+    .single-reps { display: flex; flex-direction: column; gap: 3px; align-items: flex-start; margin-top: 8px; }
+
+    /* Bump button */
+    .bump-btn { margin-top: 10px; display: flex; align-items: center; gap: 6px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 10px; padding: 7px 12px; }
+    .bump-btn.active { background: #fef9c3; border-color: #facc15; }
+    .bump-btn-text { font-size: 13px; font-weight: 700; color: #94a3b8; letter-spacing: 0.01em; }
+    .bump-btn.active .bump-btn-text { color: #854d0e; }
+
+    /* Reset */
+    .reset-btn { width: 100%; margin-top: 8px; padding: 16px; background: #fff; border: 2px solid #fca5a5; border-radius: 16px; color: #dc2626; font-size: 15px; font-weight: 700; letter-spacing: 0.02em; }
+  </style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+const WORKOUTS = {
+  Monday: {
+    label: "Legs & Glutes", emoji: "🦵", color: "#dc2626",
+    sections: [
+      { name: "Primary Quad Compound — RPT", tag: "RPT", exercises: [
+        { id: "sq1", name: "Smith Squat — Set 1", weight: 185, sets: 1, repRange: "4–6", isRPTSet: true },
+        { id: "sq2", name: "Smith Squat — Set 2", weight: 165, sets: 1, repRange: "6–8", isRPTSet: true },
+        { id: "sq3", name: "Smith Squat — Set 3", weight: 150, sets: 1, repRange: "8–10", isRPTSet: true },
+      ]},
+      { name: "Secondary Quad Compound", exercises: [
+        { id: "lp", name: "Leg Press", weight: 240, sets: "4", reps: 10, repRange: "8–12" },
+      ]},
+      { name: "Quad Isolation", exercises: [
+        { id: "le", name: "Leg Extension", weight: 105, sets: "3", reps: 15, repRange: "12–15" },
+      ]},
+      { name: "Glute Strength — RPT", tag: "RPT", exercises: [
+        { id: "ht1", name: "Hip Thrusts — Set 1", weight: 325, sets: 1, repRange: "6–8", isRPTSet: true },
+        { id: "ht2", name: "Hip Thrusts — Set 2", weight: 295, sets: 1, repRange: "8–10", isRPTSet: true },
+      ]},
+      { name: "Hamstring", exercises: [
+        { id: "hc", name: "Hamstring Curl", weight: 125, sets: "4", reps: 12, repRange: "10–12" },
+      ]},
+      { name: "Calf Superset", tag: "SUPERSET", exercises: [
+        { id: "scr", name: "Standing Calf Raise", weight: 230, sets: "4", reps: 10, repRange: "10–12" },
+        { id: "secr", name: "Seated Calf Raise", weight: 105, sets: "4", reps: 12, repRange: "12–15" },
+      ]},
+      { name: "Optional Finisher", tag: "OPTIONAL", exercises: [
+        { id: "had", name: "Hip Adductor", weight: 120, sets: "3", reps: 15, repRange: "12–15" },
+        { id: "hab", name: "Hip Abductor", weight: 115, sets: "3", reps: 17, repRange: "15–20" },
+      ]},
+      { name: "Core", exercises: [
+        { id: "wlr", name: "Weighted Leg Raise", weight: 6, weightNote: "ea leg", sets: "3", reps: 12, repRange: "10–12" },
+        { id: "rt", name: "Rotary Torso", weight: 55, sets: "3", reps: 14, repRange: "12–15 ea" },
+        { id: "wds", name: "Weighted Decline Sit-Up", weight: 35, sets: "3", reps: 12, repRange: "10–12" },
+      ]},
+      { name: "Cardio", exercises: [
+        { id: "ellm", name: "Elliptical", weight: null, sets: "1", timeNote: "10 min · ~100 cal" },
+      ]},
+    ]
+  },
+  Wednesday: {
+    label: "Chest, Shoulders & Tris", emoji: "💪", color: "#1d4ed8",
+    sections: [
+      { name: "Primary Chest — RPT", tag: "RPT", exercises: [
+        { id: "sib1", name: "Smith Incline Bench — Set 1", weight: 160, weightNote: "+ bar", sets: 1, repRange: "4–6", isRPTSet: true },
+        { id: "sib2", name: "Smith Incline Bench — Set 2", weight: 145, weightNote: "+ bar", sets: 1, repRange: "6–8", isRPTSet: true },
+        { id: "sib3", name: "Smith Incline Bench — Set 3", weight: 130, weightNote: "+ bar", sets: 1, repRange: "8–10", isRPTSet: true },
+      ]},
+      { name: "Secondary Chest", exercises: [
+        { id: "dbb", name: "DB Bench Press", weight: 120, weightNote: "ea", sets: "3", reps: 10, repRange: "8–10" },
+      ]},
+      { name: "Chest Isolation", exercises: [
+        { id: "cf", name: "High-to-Low Cable Fly", weight: 30, weightNote: "ea", sets: "3", reps: 12, repRange: "10–12" },
+      ]},
+      { name: "Shoulder Compound", exercises: [
+        { id: "ap", name: "Arnold Press", weight: 75, weightNote: "ea", sets: "2", reps: 10, repRange: "8–10" },
+      ]},
+      { name: "Shoulder Hypertrophy", tag: "SUPERSET", exercises: [
+        { id: "hlr", name: "Heavy Lateral Raise", weight: 40, weightNote: "ea", sets: "3", reps: 11, repRange: "10–12" },
+        { id: "lrb", name: "Lateral Raise Burnout", weight: 25, weightNote: "ea", sets: "3", reps: 15, repRange: "12–15" },
+      ]},
+      { name: "Rear Delts", exercises: [
+        { id: "fp", name: "Face Pulls", weight: 87, sets: "3", reps: 13, repRange: "12–15" },
+      ]},
+      { name: "Traps", exercises: [
+        { id: "sh", name: "Shrugs", weight: 75, weightNote: "ea", sets: "3", reps: 12, repRange: "12–15" },
+      ]},
+      { name: "Triceps", exercises: [
+        { id: "octe", name: "Overhead Cable Tri Ext", weight: 49.5, sets: "3", reps: 9, repRange: "8–10" },
+        { id: "ctp", name: "Cable Pressdown", weight: 60, sets: "3", reps: 11, repRange: "10–12" },
+      ]},
+      { name: "Bicep Frequency Day 1", tag: "NEW", exercises: [
+        { id: "dhcw", name: "DB Hammer Curl", weight: 25, weightNote: "ea", sets: "3", reps: 9, repRange: "8–10" },
+      ]},
+      { name: "Core", exercises: [
+        { id: "cm", name: "Crunch Machine", weight: 55, sets: "3", reps: 15, repRange: "15–20" },
+        { id: "rcc", name: "Rope Cable Crunch", weight: 88, sets: "3", reps: 8, repRange: "8–10" },
+        { id: "ihhw", name: "Hollow Hold", weight: null, sets: "3", timeNote: "45 sec", repRange: "30–45 sec" },
+      ]},
+      { name: "Cardio", exercises: [
+        { id: "ellw", name: "Elliptical", weight: null, sets: "1", timeNote: "10 min · 100 cal" },
+      ]},
+    ]
+  },
+  Friday: {
+    label: "Back, Biceps & Chest", emoji: "🏋️", color: "#047857",
+    sections: [
+      { name: "Pull Anchor — RPT", tag: "RPT", exercises: [
+        { id: "pup1", name: "Neutral-Grip Pull-Ups — Set 1", weight: 15, sets: 1, repRange: "4–6", isRPTSet: true },
+        { id: "pup2", name: "Neutral-Grip Pull-Ups — Set 2", weight: 10, sets: 1, repRange: "6–8", isRPTSet: true },
+        { id: "pup3", name: "Neutral-Grip Pull-Ups — Set 3", weight: 0, sets: 1, repRange: "8–10", isRPTSet: true, weightNote: "BW ok" },
+      ]},
+      { name: "Lat Width", exercises: [
+        { id: "lfr", name: "Lat-Focused Row", weight: 99, sets: "3", reps: 9, repRange: "8–12" },
+      ]},
+      { name: "Posterior Chain", exercises: [
+        { id: "rdl", name: "Romanian Deadlift", weight: 145, weightNote: "+ bar", sets: "3", reps: 6, repRange: "6–8" },
+      ]},
+      { name: "Mid-Back", exercises: [
+        { id: "lmr", name: "Landmine Row", weight: 125, weightNote: "+ bar", sets: "3", reps: 8, repRange: "8–10" },
+      ]},
+      { name: "Thickness Builder — RPT", tag: "RPT", exercises: [
+        { id: "csr1", name: "Chest Supported Row — Set 1", weight: 225, sets: 1, repRange: "4–6", isRPTSet: true },
+        { id: "csr2", name: "Chest Supported Row — Set 2", weight: 200, sets: 1, repRange: "6–8", isRPTSet: true },
+        { id: "csr3", name: "Chest Supported Row — Set 3", weight: 185, sets: 1, repRange: "8–10", isRPTSet: true },
+      ]},
+      { name: "Lat Isolation", exercises: [
+        { id: "sap", name: "Straight Arm Pulldown", weight: 55, sets: "3", reps: 12, repRange: "12–15" },
+      ]},
+      { name: "Rear Delt Prep", exercises: [
+        { id: "rpd", name: "Reverse Pec Deck", weight: 35, sets: "2", reps: 15, repRange: "12–15" },
+      ]},
+      { name: "Chest Frequency Day 2", tag: "NEW", exercises: [
+        { id: "icf", name: "Incline Cable Fly", weight: 25, weightNote: "ea", sets: "3", reps: 12, repRange: "10–12" },
+      ]},
+      { name: "Bicep Frequency Day 2 — RPT", tag: "RPT", exercises: [
+        { id: "dbc1", name: "DB Curl — Set 1", weight: 47.5, weightNote: "ea", sets: 1, repRange: "4–6", isRPTSet: true },
+        { id: "dbc2", name: "DB Curl — Set 2", weight: 42.5, weightNote: "ea", sets: 1, repRange: "6–8", isRPTSet: true },
+        { id: "dbc3", name: "DB Curl — Set 3", weight: 37.5, weightNote: "ea", sets: 1, repRange: "8–10", isRPTSet: true },
+      ]},
+      { name: "Bicep Finisher", exercises: [
+        { id: "ccf", name: "Cable Curl Finisher", weight: 26.5, sets: "1", reps: 18, repRange: "14–18" },
+      ]},
+      { name: "Hamstring Balance", tag: "NEW", exercises: [
+        { id: "llc", name: "Lying Leg Curl", weight: 75, sets: "3", reps: 12, repRange: "10–12" },
+      ]},
+      { name: "Posterior Chain", exercises: [
+        { id: "be", name: "Back Extensions", weight: 65, sets: "3", reps: 14, repRange: "10–15" },
+      ]},
+      { name: "Shoulder", exercises: [
+        { id: "llr", name: "Light Lateral Raise", weight: 35, weightNote: "ea", sets: "1", reps: 14, repRange: "12–15" },
+      ]},
+      { name: "Core", exercises: [
+        { id: "hkr", name: "Hanging Knee Raises", weight: 10, weightNote: "ea leg", sets: "3", reps: 11, repRange: "10–12" },
+        { id: "pp", name: "Pallof Press", weight: 26.5, sets: "3", reps: 10, repRange: "10–12" },
+        { id: "dsb", name: "DB Side Bend", weight: 65, sets: "3", reps: 12, repRange: "10–12" },
+      ]},
+      { name: "Cardio", exercises: [
+        { id: "ellf", name: "Elliptical", weight: null, sets: "1", timeNote: "10 min · 100 cal" },
+      ]},
+    ]
+  }
+};
+
+const TAG_COLORS = {
+  RPT:      { bg: "#fef3c7", text: "#92400e", border: "#fcd34d" },
+  NEW:      { bg: "#d1fae5", text: "#065f46", border: "#6ee7b7" },
+  SUPERSET: { bg: "#ede9fe", text: "#4c1d95", border: "#c4b5fd" },
+  OPTIONAL: { bg: "#f1f5f9", text: "#475569", border: "#cbd5e1" },
+};
+
+// ── State ────────────────────────────────────────────────────────────────────
+function loadLog() {
+  try { return JSON.parse(localStorage.getItem("overload_weekLog") || "{}"); } catch { return {}; }
+}
+function saveLog(log) {
+  try { localStorage.setItem("overload_weekLog", JSON.stringify(log)); } catch {}
+}
+
+let weekLog = loadLog();
+let activeDay = "Monday";
+
+function updateLog(exId, data) {
+  weekLog[exId] = data;
+  saveLog(weekLog);
+  render();
+}
+
+// ── Render helpers ───────────────────────────────────────────────────────────
+function el(tag, attrs, ...children) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (k === "style" && typeof v === "object") Object.assign(e.style, v);
+    else if (k.startsWith("on")) e.addEventListener(k.slice(2).toLowerCase(), v);
+    else if (k === "className") e.className = v;
+    else e.setAttribute(k, v);
+  }
+  for (const c of children.flat()) {
+    if (c == null) continue;
+    e.appendChild(typeof c === "string" ? document.createTextNode(c) : c);
+  }
+  return e;
+}
+
+function makeInput(opts) {
+  const input = document.createElement("input");
+  input.type = "text";
+  input.inputMode = "decimal";
+  input.value = opts.value !== undefined && opts.value !== "" ? String(opts.value) : "";
+  input.placeholder = opts.placeholder !== undefined ? String(opts.placeholder) : "";
+  input.className = opts.className || "";
+  if (opts.style) Object.assign(input.style, opts.style);
+
+  // While typing: just store raw string so decimals aren't wiped mid-entry
+  input.addEventListener("input", e => {
+    const raw = e.target.value;
+    // Only allow digits and one decimal point
+    const cleaned = raw.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
+    if (raw !== cleaned) { input.value = cleaned; }
+    opts.onRawInput && opts.onRawInput(cleaned);
+  });
+
+  // On blur: parse and save the final value
+  input.addEventListener("blur", e => {
+    const val = parseFloat(e.target.value) || 0;
+    opts.onCommit && opts.onCommit(val);
+    // Reformat to clean number
+    if (e.target.value !== "" && !e.target.value.endsWith(".")) {
+      input.value = String(val);
+    }
+  });
+
+  return input;
+}
+
+function renderExerciseRow(ex, color) {
+  const logged = weekLog[ex.id] || {};
+  const hasWeight = ex.weight != null;
+  const isMultiSet = !ex.isRPTSet && ex.sets && parseInt(ex.sets) > 1;
+  const numSets = isMultiSet ? parseInt(ex.sets) : 1;
+  const hasReps = ex.reps != null || ex.isRPTSet;
+  const currentWeight = logged.weight !== undefined ? logged.weight : (ex.weight ?? "");
+  const setReps = logged.setReps || {};
+  const currentReps = logged.reps !== undefined ? logged.reps : (ex.reps ?? "");
+  const improved = hasWeight && logged.weight !== undefined && ex.weight != null && logged.weight > ex.weight;
+  const done = !!logged.done;
+  const bump = !!logged.bump;
+
+  const row = el("div", { className: "ex-row" + (done ? " done" : "") });
+
+  // Top row
+  const nameDiv = el("div", { className: "ex-name" + (done ? " done" : ""), style: { color: done ? "#94a3b8" : "#0f172a" } }, ex.name);
+  if (improved) {
+    nameDiv.appendChild(el("span", { className: "pr-badge", style: { background: color } }, "PR!"));
+  }
+  const metaParts = [];
+  if (ex.sets !== undefined && !ex.isRPTSet) metaParts.push(`${ex.sets} sets · `);
+  if (ex.repRange) metaParts.push(`${ex.repRange} reps`);
+  if (ex.weightNote && ex.weightNote !== "ea" && ex.weightNote !== "+ bar") metaParts.push(` · ${ex.weightNote}`);
+  if (ex.timeNote) metaParts.push(` · ${ex.timeNote}`);
+  const metaDiv = el("div", { className: "ex-meta" }, metaParts.join(""));
+
+  const nameCol = el("div", {}, nameDiv, metaDiv);
+
+  const topRow = el("div", { className: "ex-top" }, nameCol);
+
+  // LBS input
+  if (hasWeight) {
+    const lbsInput = makeInput({
+      className: "lbs-input" + (improved ? " improved" : ""),
+      value: currentWeight,
+      placeholder: ex.weight ?? "",
+      style: improved ? { borderColor: color, background: `${color}18`, color } : {},
+      onCommit: val => updateLog(ex.id, { ...logged, weight: val }),
+    });
+    const lbsLabel = ex.weightNote === "ea" ? "LBS EA" : ex.weightNote === "+ bar" ? "LBS+BAR" : ex.weightNote ? `LBS · ${ex.weightNote}` : "LBS";
+    const lbsCol = el("div", { className: "lbs-col" },
+      el("div", { className: "input-label" }, lbsLabel),
+      lbsInput
+    );
+    topRow.appendChild(lbsCol);
+  }
+
+  // Check button
+  const checkBtn = el("button", {
+    className: "check-btn" + (done ? " done" : ""),
+    style: { background: done ? color : "#f1f5f9", borderColor: done ? color : "#cbd5e1", color: done ? "#fff" : "#94a3b8" },
+    onclick: () => updateLog(ex.id, { ...logged, done: !done }),
+  }, "✓");
+  topRow.appendChild(checkBtn);
+  row.appendChild(topRow);
+
+  // Multi-set reps
+  if (isMultiSet) {
+    const repsRow = el("div", { className: "multiset-reps" });
+    for (let i = 0; i < numSets; i++) {
+      const setInput = makeInput({
+        className: "set-input",
+        value: setReps[i] !== undefined ? setReps[i] : "",
+        placeholder: ex.reps ?? "",
+        onCommit: (e => {
+          const idx = i;
+          return val => {
+            const newSetReps = { ...setReps, [idx]: val };
+            updateLog(ex.id, { ...logged, setReps: newSetReps });
+          };
+        })(),
+      });
+      repsRow.appendChild(el("div", { className: "multiset-col" },
+        el("div", { className: "multiset-label" }, `S${i+1}`),
+        setInput
+      ));
+    }
+    repsRow.appendChild(el("div", { className: "reps-unit" }, "reps"));
+    row.appendChild(repsRow);
+  }
+
+  // Single reps (RPT)
+  if (!isMultiSet && hasReps) {
+    const repsInput = makeInput({
+      className: "reps-input",
+      value: currentReps,
+      placeholder: ex.reps ?? "",
+      onCommit: val => updateLog(ex.id, { ...logged, reps: val }),
+    });
+    row.appendChild(el("div", { className: "single-reps" },
+      el("div", { className: "input-label" }, "REPS"),
+      repsInput
+    ));
+  }
+
+  // Bump button
+  const bumpBtn = el("button", {
+    className: "bump-btn" + (bump ? " active" : ""),
+    onclick: () => updateLog(ex.id, { ...logged, bump: !bump }),
+  },
+    el("span", { style: { fontSize: "16px" } }, "⬆️"),
+    el("span", { className: "bump-btn-text" }, bump ? "GO UP IN WEIGHT NEXT WEEK" : "bump weight next week")
+  );
+  row.appendChild(bumpBtn);
+
+  return row;
+}
+
+// ── Main render ──────────────────────────────────────────────────────────────
+function render() {
+  const workout = WORKOUTS[activeDay];
+  const color = workout.color;
+  const allExercises = workout.sections.flatMap(s => s.exercises);
+  const loggedCount = allExercises.filter(e => weekLog[e.id]?.done).length;
+  const totalCount = allExercises.length;
+  const pct = totalCount > 0 ? Math.round((loggedCount / totalCount) * 100) : 0;
+
+  const app = document.getElementById("app");
+  app.innerHTML = "";
+
+  // Header
+  const header = el("div", { className: "header", style: { background: color } },
+    el("div", {},
+      el("div", { className: "header-title" }, "OVERLOAD"),
+      el("div", { className: "header-sub" }, `${workout.emoji} ${workout.label}`)
+    ),
+    el("div", {},
+      el("div", { className: "header-pct" }, `${pct}%`),
+      el("div", { className: "header-count" }, `${loggedCount}/${totalCount} done`)
+    )
+  );
+  app.appendChild(header);
+
+  // Progress bar
+  const pbBg = el("div", { className: "progress-bar-bg" },
+    el("div", { className: "progress-bar-fill", style: { width: `${pct}%`, background: color } })
+  );
+  app.appendChild(pbBg);
+
+  // Day selector
+  const daySel = el("div", { className: "day-selector" });
+  for (const day of ["Monday", "Wednesday", "Friday"]) {
+    const w = WORKOUTS[day];
+    const isActive = day === activeDay;
+    const btn = el("button", {
+      className: "day-btn" + (isActive ? " active" : ""),
+      style: {
+        background: isActive ? w.color : "#fff",
+        borderColor: isActive ? w.color : "#e2e8f0",
+        boxShadow: isActive ? `0 4px 12px ${w.color}40` : "0 1px 3px rgba(0,0,0,0.06)",
+      },
+      onclick: () => { activeDay = day; render(); },
+    },
+      el("div", { className: "day-btn-label", style: { color: isActive ? "#fff" : "#334155" } }, day.slice(0,3).toUpperCase()),
+      el("div", { className: "day-btn-emoji", style: { color: isActive ? "rgba(255,255,255,0.8)" : "#94a3b8" } }, w.emoji)
+    );
+    daySel.appendChild(btn);
+  }
+  app.appendChild(daySel);
+
+  // Sections
+  for (const section of workout.sections) {
+    const tc = section.tag ? TAG_COLORS[section.tag] : null;
+
+    const sectionDiv = el("div", { className: "section" });
+
+    // Section header
+    const sectionHeader = el("div", { className: "section-header" },
+      el("span", { className: "section-name", style: { color: tc ? tc.text : "#64748b" } }, section.name)
+    );
+    if (section.tag) {
+      sectionHeader.appendChild(el("span", {
+        className: "section-tag",
+        style: { background: tc.bg, color: tc.text, borderColor: tc.border }
+      }, section.tag));
+    }
+    sectionDiv.appendChild(sectionHeader);
+
+    // Exercise card
+    const card = el("div", { className: "exercise-card" });
+    for (const ex of section.exercises) {
+      card.appendChild(renderExerciseRow(ex, color));
+    }
+    sectionDiv.appendChild(card);
+    app.appendChild(sectionDiv);
+  }
+
+  // Reset button
+  const resetBtn = el("button", {
+    className: "reset-btn",
+    onclick: () => {
+      if (!confirm(`Reset all checkmarks for ${activeDay}?`)) return;
+      for (const ex of allExercises) {
+        if (weekLog[ex.id]) weekLog[ex.id] = { ...weekLog[ex.id], done: false };
+      }
+      saveLog(weekLog);
+      render();
+    }
+  }, `↺ Reset ${activeDay}`);
+  app.appendChild(resetBtn);
+}
+
+render();
+</script>
+</body>
+</html>
