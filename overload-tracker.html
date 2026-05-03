@@ -30,9 +30,9 @@
 
     /* Day selector */
     .day-selector { display: flex; gap: 10px; margin-bottom: 20px; }
-    .day-btn { flex: 1; padding: 14px 8px; border-radius: 16px; border: 2px solid #e2e8f0; background: #fff; }
+    .day-btn { flex: 1; padding: 10px 4px; border-radius: 16px; border: 2px solid #e2e8f0; background: #fff; }
     .day-btn.active { color: #fff; }
-    .day-btn-label { font-size: 20px; font-weight: 900; letter-spacing: -0.01em; line-height: 1; }
+    .day-btn-label { font-size: 16px; font-weight: 900; letter-spacing: -0.01em; line-height: 1; }
     .day-btn-emoji { font-size: 11px; font-weight: 600; margin-top: 4px; letter-spacing: 0.02em; }
 
     /* Section */
@@ -52,28 +52,28 @@
     .pr-badge { font-size: 11px; font-weight: 800; color: #fff; border-radius: 6px; padding: 2px 7px; letter-spacing: 0.05em; }
     .ex-meta { font-size: 17px; color: #475569; margin-top: 4px; font-weight: 600; }
     .lbs-col { display: flex; flex-direction: column; gap: 3px; align-items: center; }
-    .input-label { font-size: 11px; color: #94a3b8; font-weight: 700; letter-spacing: 0.08em; }
+    .input-label { font-size: 13px; color: #64748b; font-weight: 800; letter-spacing: 0.06em; }
     .lbs-input { width: 70px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 10px; padding: 8px 4px; color: #0f172a; font-size: 16px; font-weight: 700; text-align: center; font-family: 'DM Sans', sans-serif; }
     .lbs-input.improved { border-color: var(--color); background: color-mix(in srgb, var(--color) 10%, white); color: var(--color); }
-    .reps-input { width: 60px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 10px; padding: 8px 4px; color: #0f172a; font-size: 16px; font-weight: 700; text-align: center; font-family: 'DM Sans', sans-serif; }
-    .set-input { width: 52px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 10px; padding: 8px 4px; color: #0f172a; font-size: 16px; font-weight: 700; text-align: center; font-family: 'DM Sans', sans-serif; }
+    .reps-input { width: 68px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 10px; padding: 8px 4px; color: #0f172a; font-size: 16px; font-weight: 700; text-align: center; font-family: 'DM Sans', sans-serif; }
+    .set-input { width: 58px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 10px; padding: 8px 4px; color: #0f172a; font-size: 16px; font-weight: 700; text-align: center; font-family: 'DM Sans', sans-serif; }
     .check-btn { width: 44px; height: 44px; border-radius: 12px; border: 2px solid #cbd5e1; background: #f1f5f9; color: #94a3b8; font-size: 20px; font-weight: 900; display: flex; align-items: center; justify-content: center; }
     .check-btn.done { color: #fff; }
 
     /* Multi-set reps */
-    .multiset-reps { display: flex; gap: 8px; margin-top: 10px; align-items: flex-end; }
+    .multiset-reps { display: flex; gap: 10px; margin-top: 12px; align-items: flex-end; }
     .multiset-col { display: flex; flex-direction: column; gap: 3px; align-items: center; }
-    .multiset-label { font-size: 11px; color: #94a3b8; font-weight: 700; letter-spacing: 0.04em; }
-    .reps-unit { font-size: 13px; color: #94a3b8; font-weight: 600; padding-bottom: 10px; }
+    .multiset-label { font-size: 14px; color: #475569; font-weight: 800; letter-spacing: 0.04em; }
+    .reps-unit { font-size: 15px; color: #64748b; font-weight: 700; padding-bottom: 12px; }
 
     /* Single reps */
-    .single-reps { display: flex; flex-direction: column; gap: 3px; align-items: flex-start; margin-top: 8px; }
+    .single-reps { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; margin-top: 10px; }
 
     /* Bump button */
-    .bump-btn { margin-top: 10px; display: flex; align-items: center; gap: 6px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 10px; padding: 7px 12px; }
-    .bump-btn.active { background: #fef9c3; border-color: #facc15; }
-    .bump-btn-text { font-size: 13px; font-weight: 700; color: #94a3b8; letter-spacing: 0.01em; }
-    .bump-btn.active .bump-btn-text { color: #854d0e; }
+    .bump-btn { margin-top: 12px; display: flex; align-items: center; gap: 8px; background: #f1f5f9; border: 2px solid #cbd5e1; border-radius: 12px; padding: 10px 14px; width: 100%; }
+    .bump-btn.active { background: #ff6a00; border: 3px solid #e05500; box-shadow: 0 0 14px #ff6a00aa; }
+    .bump-btn-text { font-size: 15px; font-weight: 800; color: #94a3b8; letter-spacing: 0.02em; }
+    .bump-btn.active .bump-btn-text { color: #fff; font-size: 16px; font-weight: 900; }
 
     /* Reset */
     .reset-btn { width: 100%; margin-top: 8px; padding: 16px; background: #fff; border: 2px solid #fca5a5; border-radius: 16px; color: #dc2626; font-size: 15px; font-weight: 700; letter-spacing: 0.02em; }
@@ -85,46 +85,81 @@
 <script>
 const WORKOUTS = {
   Monday: {
-    label: "Legs & Glutes", emoji: "🦵", color: "#dc2626",
+    label: "Quad Dominant", emoji: "🏋️", color: "#dc2626",
     sections: [
-      { name: "Primary Quad Compound — RPT", tag: "RPT", exercises: [
+      { name: "Quad Anchor 1 — RPT", tag: "RPT", exercises: [
+        { id: "hs1", name: "Hack Squat — Set 1", weight: 180, sets: 1, repRange: "4–6", isRPTSet: true },
+        { id: "hs2", name: "Hack Squat — Set 2", weight: 160, sets: 1, repRange: "6–8", isRPTSet: true },
+        { id: "hs3", name: "Hack Squat — Set 3", weight: 145, sets: 1, repRange: "8–10", isRPTSet: true },
+      ]},
+      { name: "Quad Pre-Exhaust", exercises: [
+        { id: "le", name: "Leg Extension", weight: 105, sets: "3", reps: 15, repRange: "12–15" },
+      ]},
+      { name: "Quad Anchor 2 — RPT", tag: "RPT", exercises: [
         { id: "sq1", name: "Smith Squat — Set 1", weight: 185, sets: 1, repRange: "4–6", isRPTSet: true },
         { id: "sq2", name: "Smith Squat — Set 2", weight: 165, sets: 1, repRange: "6–8", isRPTSet: true },
         { id: "sq3", name: "Smith Squat — Set 3", weight: 150, sets: 1, repRange: "8–10", isRPTSet: true },
       ]},
-      { name: "Secondary Quad Compound", exercises: [
-        { id: "lp", name: "Leg Press", weight: 240, sets: "4", reps: 10, repRange: "8–12" },
+      { name: "Quad Volume Finisher", exercises: [
+        { id: "lp", name: "Leg Press", weight: 240, sets: "3", reps: 10, repRange: "8–12" },
       ]},
-      { name: "Quad Isolation", exercises: [
-        { id: "le", name: "Leg Extension", weight: 105, sets: "3", reps: 15, repRange: "12–15" },
-      ]},
-      { name: "Glute Strength — RPT", tag: "RPT", exercises: [
-        { id: "ht1", name: "Hip Thrusts — Set 1", weight: 325, sets: 1, repRange: "6–8", isRPTSet: true },
-        { id: "ht2", name: "Hip Thrusts — Set 2", weight: 295, sets: 1, repRange: "8–10", isRPTSet: true },
-      ]},
-      { name: "Hamstring", exercises: [
-        { id: "hc", name: "Hamstring Curl", weight: 125, sets: "4", reps: 12, repRange: "10–12" },
+      { name: "Hamstring Balance", exercises: [
+        { id: "hc", name: "Hamstring Curl", weight: 125, sets: "3", reps: 12, repRange: "10–12" },
       ]},
       { name: "Calf Superset", tag: "SUPERSET", exercises: [
         { id: "scr", name: "Standing Calf Raise", weight: 230, sets: "4", reps: 10, repRange: "10–12" },
         { id: "secr", name: "Seated Calf Raise", weight: 105, sets: "4", reps: 12, repRange: "12–15" },
       ]},
-      { name: "Optional Finisher", tag: "OPTIONAL", exercises: [
+      { name: "Core", exercises: [
+        { id: "wlr", name: "Weighted Leg Raise", weight: 6, weightNote: "ea leg", sets: "3", reps: 12, repRange: "10–12" },
+        { id: "rt", name: "Rotary Torso", weight: 55, sets: "3", reps: 14, repRange: "15–20 ea" },
+      ]},
+      { name: "Cardio", exercises: [
+        { id: "ellm", name: "Elliptical", noBump: true, weight: null, sets: "1", timeNote: "10 min · ~100 cal" },
+      ]},
+    ]
+  },
+  Thursday: {
+    label: "Glute & Hamstring Dominant", emoji: "🍑", color: "#7c3aed",
+    sections: [
+      { name: "Glute Anchor — RPT", tag: "RPT", exercises: [
+        { id: "ht1", name: "Hip Thrusts — Set 1", weight: 325, sets: 1, repRange: "8–10", isRPTSet: true },
+        { id: "ht2", name: "Hip Thrusts — Set 2", weight: 295, sets: 1, repRange: "10–12", isRPTSet: true },
+        { id: "ht3", name: "Hip Thrusts — Set 3", weight: 265, sets: 1, repRange: "12–15", isRPTSet: true },
+      ]},
+      { name: "Glute-Biased Squat", exercises: [
+        { id: "wss", name: "Wide-Stance Smith Squat", weight: 90, weightNote: "+ bar", sets: "3", reps: 10, repRange: "10–12" },
+      ]},
+      { name: "Unilateral Glute", exercises: [
+        { id: "bss", name: "Bulgarian Split Squat", weight: 40, weightNote: "ea", sets: "3", reps: 9, repRange: "8–10 ea" },
+      ]},
+      { name: "Hamstring Hip Hinge", exercises: [
+        { id: "trdl", name: "Romanian Deadlift", weight: 135, weightNote: "+ bar", sets: "3", reps: 9, repRange: "8–10" },
+      ]},
+      { name: "Hamstring Isolation", exercises: [
+        { id: "slhc", name: "Single-Leg Hamstring Curl", weight: 60, weightNote: "ea", sets: "3", reps: 11, repRange: "10–12 ea" },
+      ]},
+      { name: "Glute Isolation", exercises: [
+        { id: "ck", name: "Cable Kickback", weight: 30, weightNote: "ea", sets: "3", reps: 13, repRange: "15–20 ea" },
+      ]},
+      { name: "Hip Abduction & Adduction", tag: "SUPERSET", exercises: [
         { id: "had", name: "Hip Adductor", weight: 120, sets: "3", reps: 15, repRange: "12–15" },
         { id: "hab", name: "Hip Abductor", weight: 115, sets: "3", reps: 17, repRange: "15–20" },
       ]},
+      { name: "Calf", exercises: [
+        { id: "tscr", name: "Seated Calf Raise", weight: 105, sets: "3", reps: 12, repRange: "12–15" },
+      ]},
       { name: "Core", exercises: [
-        { id: "wlr", name: "Weighted Leg Raise", weight: 6, weightNote: "ea leg", sets: "3", reps: 12, repRange: "10–12" },
-        { id: "rt", name: "Rotary Torso", weight: 55, sets: "3", reps: 14, repRange: "12–15 ea" },
         { id: "wds", name: "Weighted Decline Sit-Up", weight: 35, sets: "3", reps: 12, repRange: "10–12" },
+        { id: "pp2", name: "Pallof Press", weight: 26.5, sets: "3", reps: 10, repRange: "10–12" },
       ]},
       { name: "Cardio", exercises: [
-        { id: "ellm", name: "Elliptical", weight: null, sets: "1", timeNote: "10 min · ~100 cal" },
+        { id: "ellt", name: "Elliptical", noBump: true, weight: null, sets: "1", timeNote: "10 min · ~100 cal" },
       ]},
     ]
   },
   Wednesday: {
-    label: "Chest, Shoulders & Tris", emoji: "💪", color: "#1d4ed8",
+    label: "Chest, Shoulders & Tris", emoji: "🔱", color: "#1d4ed8",
     sections: [
       { name: "Primary Chest — RPT", tag: "RPT", exercises: [
         { id: "sib1", name: "Smith Incline Bench — Set 1", weight: 160, weightNote: "+ bar", sets: 1, repRange: "4–6", isRPTSet: true },
@@ -138,7 +173,7 @@ const WORKOUTS = {
         { id: "cf", name: "High-to-Low Cable Fly", weight: 30, weightNote: "ea", sets: "3", reps: 12, repRange: "10–12" },
       ]},
       { name: "Shoulder Compound", exercises: [
-        { id: "ap", name: "Arnold Press", weight: 75, weightNote: "ea", sets: "2", reps: 10, repRange: "8–10" },
+        { id: "ap", name: "Arnold Press", weight: 75, weightNote: "ea", sets: "2", reps: 10, repRange: "10–12" },
       ]},
       { name: "Shoulder Hypertrophy", tag: "SUPERSET", exercises: [
         { id: "hlr", name: "Heavy Lateral Raise", weight: 40, weightNote: "ea", sets: "3", reps: 11, repRange: "10–12" },
@@ -154,33 +189,29 @@ const WORKOUTS = {
         { id: "octe", name: "Overhead Cable Tri Ext", weight: 49.5, sets: "3", reps: 9, repRange: "8–10" },
         { id: "ctp", name: "Cable Pressdown", weight: 60, sets: "3", reps: 11, repRange: "10–12" },
       ]},
-      { name: "Bicep Frequency Day 1", tag: "NEW", exercises: [
+      { name: "Bicep Frequency Day 1", exercises: [
         { id: "dhcw", name: "DB Hammer Curl", weight: 25, weightNote: "ea", sets: "3", reps: 9, repRange: "8–10" },
       ]},
       { name: "Core", exercises: [
         { id: "cm", name: "Crunch Machine", weight: 55, sets: "3", reps: 15, repRange: "15–20" },
         { id: "rcc", name: "Rope Cable Crunch", weight: 88, sets: "3", reps: 8, repRange: "8–10" },
-        { id: "ihhw", name: "Hollow Hold", weight: null, sets: "3", timeNote: "45 sec", repRange: "30–45 sec" },
+        { id: "ihhw", name: "Hollow Hold", weight: 0, sets: "1", timeNote: "3 × 45 sec", repRange: "30–45 sec", noReps: true },
       ]},
       { name: "Cardio", exercises: [
-        { id: "ellw", name: "Elliptical", weight: null, sets: "1", timeNote: "10 min · 100 cal" },
+        { id: "ellw", name: "Elliptical", noBump: true, weight: null, sets: "1", timeNote: "10 min · 100 cal" },
       ]},
     ]
   },
   Friday: {
-    label: "Back, Biceps & Chest", emoji: "🏋️", color: "#047857",
+    label: "Back, Biceps & Chest", emoji: "💪", color: "#047857",
     sections: [
       { name: "Pull Anchor — RPT", tag: "RPT", exercises: [
         { id: "pup1", name: "Neutral-Grip Pull-Ups — Set 1", weight: 15, sets: 1, repRange: "4–6", isRPTSet: true },
         { id: "pup2", name: "Neutral-Grip Pull-Ups — Set 2", weight: 10, sets: 1, repRange: "6–8", isRPTSet: true },
-        { id: "pup3", name: "Neutral-Grip Pull-Ups — Set 3", weight: 0, sets: 1, repRange: "8–10", isRPTSet: true, weightNote: "BW ok" },
+        { id: "pup3", name: "Neutral-Grip Pull-Ups — Set 3", weight: 0, sets: 1, repRange: "8–10", isRPTSet: true },
       ]},
       { name: "Lat Width", exercises: [
         { id: "lfr", name: "Lat-Focused Row", weight: 99, sets: "3", reps: 9, repRange: "8–12" },
-      ]},
-      { name: "Posterior Chain", exercises: [
-        { id: "rdl", name: "Romanian Deadlift", weight: 145, weightNote: "+ bar", sets: "3", reps: 6, repRange: "6–8" },
-      ]},
       { name: "Mid-Back", exercises: [
         { id: "lmr", name: "Landmine Row", weight: 125, weightNote: "+ bar", sets: "3", reps: 8, repRange: "8–10" },
       ]},
@@ -195,7 +226,7 @@ const WORKOUTS = {
       { name: "Rear Delt Prep", exercises: [
         { id: "rpd", name: "Reverse Pec Deck", weight: 35, sets: "2", reps: 15, repRange: "12–15" },
       ]},
-      { name: "Chest Frequency Day 2", tag: "NEW", exercises: [
+      { name: "Chest Frequency Day 2", exercises: [
         { id: "icf", name: "Incline Cable Fly", weight: 25, weightNote: "ea", sets: "3", reps: 12, repRange: "10–12" },
       ]},
       { name: "Bicep Frequency Day 2 — RPT", tag: "RPT", exercises: [
@@ -206,22 +237,18 @@ const WORKOUTS = {
       { name: "Bicep Finisher", exercises: [
         { id: "ccf", name: "Cable Curl Finisher", weight: 26.5, sets: "1", reps: 18, repRange: "14–18" },
       ]},
-      { name: "Hamstring Balance", tag: "NEW", exercises: [
+      { name: "Hamstring Balance", exercises: [
         { id: "llc", name: "Lying Leg Curl", weight: 75, sets: "3", reps: 12, repRange: "10–12" },
       ]},
       { name: "Posterior Chain", exercises: [
         { id: "be", name: "Back Extensions", weight: 65, sets: "3", reps: 14, repRange: "10–15" },
       ]},
-      { name: "Shoulder", exercises: [
-        { id: "llr", name: "Light Lateral Raise", weight: 35, weightNote: "ea", sets: "1", reps: 14, repRange: "12–15" },
-      ]},
       { name: "Core", exercises: [
         { id: "hkr", name: "Hanging Knee Raises", weight: 10, weightNote: "ea leg", sets: "3", reps: 11, repRange: "10–12" },
-        { id: "pp", name: "Pallof Press", weight: 26.5, sets: "3", reps: 10, repRange: "10–12" },
         { id: "dsb", name: "DB Side Bend", weight: 65, sets: "3", reps: 12, repRange: "10–12" },
       ]},
       { name: "Cardio", exercises: [
-        { id: "ellf", name: "Elliptical", weight: null, sets: "1", timeNote: "10 min · 100 cal" },
+        { id: "ellf", name: "Elliptical", noBump: true, weight: null, sets: "1", timeNote: "10 min · 100 cal" },
       ]},
     ]
   }
@@ -303,7 +330,7 @@ function renderExerciseRow(ex, color) {
   const hasWeight = ex.weight != null;
   const isMultiSet = !ex.isRPTSet && ex.sets && parseInt(ex.sets) > 1;
   const numSets = isMultiSet ? parseInt(ex.sets) : 1;
-  const hasReps = ex.reps != null || ex.isRPTSet;
+  const hasReps = (ex.reps != null || ex.isRPTSet) && !ex.noReps;
   const currentWeight = logged.weight !== undefined ? logged.weight : (ex.weight ?? "");
   const setReps = logged.setReps || {};
   const currentReps = logged.reps !== undefined ? logged.reps : (ex.reps ?? "");
@@ -319,11 +346,11 @@ function renderExerciseRow(ex, color) {
     nameDiv.appendChild(el("span", { className: "pr-badge", style: { background: color } }, "PR!"));
   }
   const metaParts = [];
-  if (ex.sets !== undefined && !ex.isRPTSet) metaParts.push(`${ex.sets} sets · `);
+  if (ex.sets !== undefined && !ex.isRPTSet) metaParts.push(`${ex.sets} sets`);
   if (ex.repRange) metaParts.push(`${ex.repRange} reps`);
-  if (ex.weightNote && ex.weightNote !== "ea" && ex.weightNote !== "+ bar") metaParts.push(` · ${ex.weightNote}`);
-  if (ex.timeNote) metaParts.push(` · ${ex.timeNote}`);
-  const metaDiv = el("div", { className: "ex-meta" }, metaParts.join(""));
+  if (ex.weightNote && ex.weightNote !== "ea" && ex.weightNote !== "+ bar") metaParts.push(ex.weightNote);
+  if (ex.timeNote) metaParts.push(ex.timeNote);
+  const metaDiv = el("div", { className: "ex-meta" }, metaParts.join(" · "));
 
   const nameCol = el("div", {}, nameDiv, metaDiv);
 
@@ -395,14 +422,24 @@ function renderExerciseRow(ex, color) {
   }
 
   // Bump button
-  const bumpBtn = el("button", {
-    className: "bump-btn" + (bump ? " active" : ""),
-    onclick: () => updateLog(ex.id, { ...logged, bump: !bump }),
-  },
-    el("span", { style: { fontSize: "16px" } }, "⬆️"),
-    el("span", { className: "bump-btn-text" }, bump ? "GO UP IN WEIGHT NEXT WEEK" : "bump weight next week")
-  );
-  row.appendChild(bumpBtn);
+  if (!ex.noBump) {
+    const bumpBtn = el("button", {
+      className: "bump-btn" + (bump ? " active" : ""),
+      onclick: () => updateLog(ex.id, { ...logged, bump: !bump }),
+    },
+      el("span", { style: { fontSize: "16px" } }, "⬆️"),
+      el("span", { className: "bump-btn-text" }, bump ? "GO UP IN WEIGHT NEXT WEEK" : "bump weight next week")
+    );
+    row.appendChild(bumpBtn);
+  }
+
+
+
+
+
+
+
+
 
   return row;
 }
@@ -425,10 +462,6 @@ function render() {
       el("div", { className: "header-title" }, "OVERLOAD"),
       el("div", { className: "header-sub" }, `${workout.emoji} ${workout.label}`)
     ),
-    el("div", {},
-      el("div", { className: "header-pct" }, `${pct}%`),
-      el("div", { className: "header-count" }, `${loggedCount}/${totalCount} done`)
-    )
   );
   app.appendChild(header);
 
@@ -440,7 +473,7 @@ function render() {
 
   // Day selector
   const daySel = el("div", { className: "day-selector" });
-  for (const day of ["Monday", "Wednesday", "Friday"]) {
+  for (const day of ["Monday", "Wednesday", "Thursday", "Friday"]) {
     const w = WORKOUTS[day];
     const isActive = day === activeDay;
     const btn = el("button", {
